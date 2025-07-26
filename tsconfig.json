@@ -1,0 +1,16 @@
+{
+    "extends": "@tsconfig/strictest/tsconfig.json",
+    "compilerOptions": {
+        "target": "es2015",
+        "module": "preserve",
+
+        "rootDir": "src",
+        "outDir": "dist",
+        "sourceMap": true,
+
+        "preserveConstEnums": false,
+        "declaration": true,
+        "isolatedModules": false,
+    },
+    "include": [ "src" ],
+}

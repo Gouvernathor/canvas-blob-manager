@@ -1,0 +1,23 @@
+{
+  "name": "canvas-blob-manager",
+  "version": "1.0.0",
+  "description": "A utility for copying or downloading a canvas into an image",
+  "homepage": "https://github.com/Gouvernathor/canvas-blob-manager#readme",
+  "bugs": {
+    "url": "https://github.com/Gouvernathor/canvas-blob-manager/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gouvernathor/canvas-blob-manager.git"
+  },
+  "license": "GPL-3.0-or-later",
+  "author": "Gouvernathor",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@tsconfig/strictest": "^2.0.5"
+  }
+}

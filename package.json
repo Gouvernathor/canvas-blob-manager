@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Gouvernathor/canvas-blob-manager.git"
   },
-  "license": "GPL-3.0-or-later",
+  "license": "Unlicense",
   "author": "Gouvernathor",
   "type": "module",
   "main": "dist/index.js",

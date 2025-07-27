@@ -65,32 +65,27 @@ export default class BlobManager {
 
     /**
      * Copies the canvas's content to the clipboard as an image.
+     *
+     * If the browser and the OS allow multiple clipboard items to be copied at once,
+     * it will be copied in all the compatible formats,
+     * otherwise in the first supported one by order of preference.
      */
     public async copyCanvas(): Promise<void> {
         const blobs = await this.getBlobs();
 
-        for (const mime of this.blobMimes) {
-            if (ClipboardItem.supports && !ClipboardItem.supports(mime)) {
-                console.warn(`ClipboardItem does not support ${mime}`);
-                continue;
-            }
+        const clips = this.blobMimes
+            .filter(mime => (!ClipboardItem.supports || ClipboardItem.supports(mime)) && blobs[mime])
+            .map(mime => new ClipboardItem({ [blobs[mime]!.type]: blobs[mime]! }));
 
-            const blob = blobs[mime];
-            if (!blob) {
-                continue;
-            }
-
+        if (clips.length > 0) {
             try {
-                await navigator.clipboard.write([
-                    new ClipboardItem({ [blob.type]: blob }),
-                ]);
+                await navigator.clipboard.write(clips);
+                console.log("Copied canvas to clipboard");
             } catch (e) {
-                console.error(`Failed to copy canvas to clipboard as ${mime}: ${e}`);
-                continue;
+                console.error(`Failed to copy canvas to clipboard: ${e}`);
             }
-            console.log(`Copied canvas as ${mime} to clipboard`);
-            return;
+        } else {
+            console.error("No blobs available for copying to clipboard");
         }
-        console.error("No blobs to copy");
     }
 }

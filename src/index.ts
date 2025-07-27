@@ -1,3 +1,7 @@
+const urlFinalizer = globalThis.FinalizationRegistry ?
+    new FinalizationRegistry((url: string) => URL.revokeObjectURL(url)) :
+    { register: () => {}, unregister: () => {} };
+
 /**
  * This can be subclassed, although it is more advised to instantiate this class and use one instance.
  */
@@ -31,6 +35,14 @@ export default class BlobManager {
     }
 
     private url: string = "";
+    public releaseDownloadUrl() {
+        if (this.url) {
+            URL.revokeObjectURL(this.url);
+            urlFinalizer.unregister(this);
+            this.url = "";
+        }
+    }
+
     /**
      * Downloads the canvas as an image file, through the browser.
      */
@@ -45,10 +57,9 @@ export default class BlobManager {
         const blob = blobs[mime]!;
         const a = document.createElement("a");
         a.download = `${filenameNoExtension}.${mime.split("/")[1]}`; // though most browsers fix the extension automatically
-        if (this.url) {
-            URL.revokeObjectURL(this.url);
-        }
+        this.releaseDownloadUrl();
         a.href = this.url = URL.createObjectURL(blob);
+        urlFinalizer.register(this, this.url, this);
         a.click();
     }
 

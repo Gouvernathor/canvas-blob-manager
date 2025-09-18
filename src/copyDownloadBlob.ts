@@ -1,10 +1,3 @@
-interface DisposableStack {
-    adopt<T>(value: T, onDispose: (value: T) => void): T;
-}
-declare const DisposableStack: {
-    new (): DisposableStack;
-};
-
 /**
  * The filename should include the extension,
  * although most browsers will fix the extension automatically

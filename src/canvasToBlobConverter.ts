@@ -2,7 +2,7 @@ export type Canvas = HTMLCanvasElement | OffscreenCanvas;
 
 export default class CanvasToBlobConverter {
     constructor(
-        private blobMimes: readonly string[] = [ "image/webp", "image/png" ],
+        public readonly blobMimes: readonly string[] = [ "image/webp", "image/png" ],
     ) {}
 
     public async getBlobs(canvas: Canvas): Promise<Record<string, Blob>> {

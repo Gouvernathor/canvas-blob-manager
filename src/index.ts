@@ -1,11 +1,11 @@
-import CanvasToBlobConverter from "./canvasToBlobConverter";
+import CanvasToBlobConverter, { Canvas } from "./canvasToBlobConverter";
 import { copyBlobs, downloadBlob } from "./copyDownloadBlob";
 
 export default class CanvasBlobManager {
     private converter: CanvasToBlobConverter;
 
     constructor(
-        private getCanvas: () => HTMLCanvasElement,
+        private getCanvas: () => Canvas,
         blobMimes: string[] = [ "image/webp", "image/png" ],
     ) {
         this.converter = new CanvasToBlobConverter(blobMimes);

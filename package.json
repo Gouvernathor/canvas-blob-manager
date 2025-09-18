@@ -1,6 +1,6 @@
 {
   "name": "canvas-blob-manager",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "A utility for copying or downloading a canvas into an image",
   "homepage": "https://github.com/Gouvernathor/canvas-blob-manager#readme",
   "bugs": {

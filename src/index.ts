@@ -1,5 +1,5 @@
-import CanvasToBlobConverter, { Canvas } from "./canvasToBlobConverter";
-import { copyBlobs, downloadBlob } from "./copyDownloadBlob";
+import CanvasToBlobConverter, { Canvas } from "./canvasToBlobConverter.js";
+import { copyBlobs, downloadBlob } from "./copyDownloadBlob.js";
 
 export default class CanvasBlobManager {
     private converter: CanvasToBlobConverter;

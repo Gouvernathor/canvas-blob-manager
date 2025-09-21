@@ -7,11 +7,12 @@ export default class CanvasToBlobConverter {
 
     public async getBlobs(canvas: Canvas): Promise<Record<string, Blob>> {
         const blobs: Record<string, Blob> = {};
+        const converter = canvas instanceof HTMLCanvasElement ?
+            (mime: string) => fromHTMLCanvas(canvas, mime) :
+            (mime: string) => fromOffscreenCanvas(canvas, mime);
 
         await Promise.allSettled(this.blobMimes.map(async mime => {
-            const blob = await (canvas instanceof HTMLCanvasElement ?
-                fromHTMLCanvas(canvas, mime) :
-                fromOffscreenCanvas(canvas, mime));
+            const blob = await converter(mime);
             if (blob.type === mime) {
                 blobs[mime] = blob;
             }

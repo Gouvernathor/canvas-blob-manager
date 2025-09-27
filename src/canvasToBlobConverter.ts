@@ -29,8 +29,7 @@ function fromHTMLCanvas(canvas: HTMLCanvasElement, mimeType: string): Promise<Bl
                 throw new Error(`Failed to extract data as ${mimeType}`);
             }
             resolve(blob);
-        }, mimeType, 1.)
-    );
+        }, mimeType, 1.));
 }
 
 function fromOffscreenCanvas(canvas: OffscreenCanvas, mimeType: string): Promise<Blob> {

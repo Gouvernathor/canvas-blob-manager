@@ -19,12 +19,14 @@ export default class CanvasBlobManager {
 
     /**
      * Downloads the canvas as an image file, through the browser.
+     *
+     * Throws an error if no blob is available for download.
      */
     public async downloadCanvas(filenameNoExtension = "image"): Promise<void> {
         const blobs = await this.converter.getBlobs(this.getCanvas());
         const mime = Object.keys(blobs)[0];
         if (mime === undefined) {
-            console.error("No blobs available for download");
+            throw new Error("No blobs available for download");
         } else {
             const blob = blobs[mime]!;
             downloadBlob(blob, `${filenameNoExtension}.${mime.split("/")[1]}`);
@@ -37,6 +39,8 @@ export default class CanvasBlobManager {
      * If the browser and the OS allow multiple clipboard items to be copied at once,
      * it will be copied in all the compatible formats,
      * otherwise in the first supported one by order of preference.
+     *
+     * Throws an error if no blob is available for copying, or if the copy operation fails.
      */
     public async copyCanvas(): Promise<void> {
         const blobs = await this.converter.getBlobs(this.getCanvas());

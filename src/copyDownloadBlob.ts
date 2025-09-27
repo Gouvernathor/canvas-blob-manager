@@ -29,9 +29,9 @@ export async function copyBlobs(...blobs: Blob[]) {
         try {
             await navigator.clipboard.write(clips);
         } catch (error) {
-            console.error("Failed to copy blobs to clipboard", error);
+            throw new Error("Failed to copy blobs to clipboard", { cause: error });
         }
     } else {
-        console.error("No supported blob to copy to clipboard");
+        throw new Error("No supported blob to copy to clipboard");
     }
 }
